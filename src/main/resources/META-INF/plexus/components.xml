@@ -14,12 +14,13 @@
           <package>
             com.samskivert:ikvm-maven-plugin:ikvm
           </package>
+          <!--  removing.  TODO: replace with nuget?
           <install>
             org.apache.maven.plugins:maven-install-plugin:install
           </install>
           <deploy>
             org.apache.maven.plugins:maven-deploy-plugin:deploy
-          </deploy>
+          </deploy>  -->
         </phases>
       </configuration>
     </component>
