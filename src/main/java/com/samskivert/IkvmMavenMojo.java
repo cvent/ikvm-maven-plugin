@@ -39,6 +39,12 @@ public class IkvmMavenMojo extends AbstractMojo
      * @parameter expression="${ikvm.path}"
      */
     public File ikvmPath;
+    
+    /**
+     * Location of a single jar file that was built as part of shade plugin or something to avoid issues on windows
+     * platform with ikvmc argument list being too long
+     */
+    public File singleJar;
 
     /**
      * Location of the {@code ikvmc.exe} executable. Default: {@code ${ikvm.path}/bin/ikvmc.exe}.
@@ -250,9 +256,13 @@ public class IkvmMavenMojo extends AbstractMojo
                                           "*.class");
 
         } else {
-            // otherwise just add our jar files to the argument list
-            for (File depend : javaDepends) {
-                cli.createArgument().setValue(depend.getAbsolutePath());
+            if (singleJar != null) {
+                cli.createArgument().setValue(singleJar.getAbsolutePath());
+            } else {
+                // otherwise just add our jar files to the argument list
+                for (File depend : javaDepends) {
+                    cli.createArgument().setValue(depend.getAbsolutePath());
+                }
             }
         }
 
